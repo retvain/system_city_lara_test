@@ -14,8 +14,19 @@ class CreateStoreProductsTable extends Migration
     public function up()
     {
         Schema::create('store_products', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->timestamps();
+
+            $table->string('slug')->unique();
+            $table->string('title');
+            $table->string('breed');
+
+            $table->text('excerpt')->nullable();
+
+            $table->text('content_raw');
+            $table->text('content_html');
+
+            $table->softDeletes();
         });
     }
 
