@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\StoreProductRepository;
 use Illuminate\Http\Request;
 
 class StoreController extends BaseController
 {
+    private $storeProductRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->storeProductRepository = app(StoreProductRepository::class);
+
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $paginator = $this->storeProductRepository->getAllWithPaginate();
+//        dd(__METHOD__, $paginator);
+
+        return view('Store.index', compact('paginator'));
     }
 
     /**
