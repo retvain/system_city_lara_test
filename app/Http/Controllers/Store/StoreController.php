@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductCreateRequest;
+use App\Http\Requests\StoreProductUpdateRequest;
+use App\Models\StoreProduct;
 use App\Repositories\StoreProductRepository;
 use Illuminate\Http\Request;
+use Psy\Util\Str;
 
 class StoreController extends BaseController
 {
@@ -33,22 +37,39 @@ class StoreController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        {
+            $item = new StoreProduct();
+//            dd(__METHOD__, $item);
+
+            return view('Store.edit',
+                compact('item'));
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreProductCreateRequest $request)
     {
-        //
+        //dd(__METHOD__, $request);
+        $data = $request->input();
+        $item = (new StoreProduct())->create($data);
+
+        if($item) {
+            return redirect()->route('store.cat.edit', [$item->id])
+                ->with(['success' => 'Save successful']);
+        } else {
+            return back()->withErrors(['msg' => 'Error saving'])
+                ->withInput();
+        }
+
     }
 
     /**
@@ -66,11 +87,18 @@ class StoreController extends BaseController
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        //dd(__METHOD__, $id);
+        $item = $this->storeProductRepository->getEdit($id);
+        if (empty($item)) {
+            abort(404);
+        }
+
+        return view('Store.edit',
+            compact('item'));
     }
 
     /**
@@ -78,11 +106,31 @@ class StoreController extends BaseController
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(StoreProductUpdateRequest $request, $id)
     {
-        //
+        $item = $this->storeProductRepository->getEdit($id);
+
+        if (empty($item)) {
+            return back()
+                ->withErrors(['msg' => "Record id=[{$id}] not found"])
+                ->withInput();
+        }
+
+        $data = $request->all();
+
+        $result = $item->update($data);
+
+        if ($result) {
+            return redirect()
+                ->route('store.cat.edit', $item->id)
+                ->with(['success' => 'Save successful']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Error Saving'])
+                ->withInput();
+        }
     }
 
     /**

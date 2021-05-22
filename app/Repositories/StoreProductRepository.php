@@ -23,7 +23,6 @@ class StoreProductRepository extends CoreRepository
         $columns = [
             'id',
             'title',
-            'slug',
             'breed',
             'excerpt',
         ];
@@ -31,7 +30,7 @@ class StoreProductRepository extends CoreRepository
         $result = $this->startConditions()
             ->select($columns)
             ->orderBy('id', 'DESC')
-            ->paginate(10);
+            ->paginate(4);
 
         return $result;
     }

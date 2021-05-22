@@ -13,7 +13,6 @@ class StoreProduct extends Model
 
     protected $fillable
         = [
-            'slug',
             'title',
             'excerpt',
             'content_raw',

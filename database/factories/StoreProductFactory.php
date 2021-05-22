@@ -31,7 +31,6 @@ class StoreProductFactory extends Factory
         return [
             'title' => $title,
             'breed' => $breed[rand(0,4)],
-            'slug' => Str::slug($title),
             'excerpt' => $this->faker->text(rand(20, 40)),
             'content_raw' => $text,
             'content_html' => $text,

@@ -17,7 +17,7 @@ class CreateStoreProductsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
-            $table->string('slug')->unique();
+            //$table->string('slug')->unique();
             $table->string('title');
             $table->string('breed');
 
