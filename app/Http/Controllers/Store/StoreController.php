@@ -82,6 +82,7 @@ class StoreController extends BaseController
     public function show($id)
     {
         $item = $this->storeProductRepository->getEdit($id);
+        //dd(__METHOD__, $item);
 
         return view('Store.show', compact('item'));
     }
@@ -140,10 +141,35 @@ class StoreController extends BaseController
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        //soft-delete
+        $result = StoreProduct::destroy($id);
+        //dd(__METHOD__, $result);
+
+        if ($result) {
+
+            return redirect()
+                ->route('store.cat.index')
+                ->with(['success' => 'Post ' . $id . ' has ben deleted! <a href="' . route('store.cat.restore', $id) . '">Restore</a>']);
+        } else {
+            return back()->withErrors(['msg' => 'Error deleting']);
+        }
+    }
+
+    public function restore($id)
+    {
+        $result = StoreProduct::withTrashed()
+            ->where('id', $id)
+            ->restore();
+        if ($result) {
+            return redirect()
+                ->route('store.cat.edit', $id)
+                ->with(['success' => "Cat id[$id] restored"]);
+        } else {
+            return back()->withErrors(['msg' => 'Error. Can not restore' ]);
+        }
     }
 }

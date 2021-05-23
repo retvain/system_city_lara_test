@@ -22,8 +22,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'store'], function () {
-    $methods = ['index', 'edit', 'update', 'create', 'store', 'show',];
+    $methods = ['index', 'edit', 'update', 'create', 'store', 'show', 'destroy'];
     Route::resource('cat', \App\Http\Controllers\Store\StoreController::class)
         ->only($methods)
         ->names('store.cat');
 });
+
+// Restore Cat
+Route::get('store/cat/{cat}/restore', [\App\Http\Controllers\Store\StoreController::class, 'restore'])
+    ->name('store.cat.restore');

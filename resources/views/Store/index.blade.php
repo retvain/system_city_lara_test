@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('Store.includes.result_messages')
         <a class="btn btn-primary" href="{{ route('store.cat.create') }}" role="button" style="float: right">Add</a>
         <h1 class="display-6">Cat shop</h1>
         @foreach($paginator as $item)
