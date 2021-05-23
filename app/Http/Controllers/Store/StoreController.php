@@ -153,7 +153,7 @@ class StoreController extends BaseController
 
             return redirect()
                 ->route('store.cat.index')
-                ->with(['success' => 'Post ' . $id . ' has ben deleted! <a href="' . route('store.cat.restore', $id) . '">Restore</a>']);
+                ->with(['success' => 'Cat ' . $id . ' has ben deleted! <a href="' . route('store.cat.restore', $id) . '">Restore</a>']);
         } else {
             return back()->withErrors(['msg' => 'Error deleting']);
         }
