@@ -58,8 +58,9 @@ class StoreController extends BaseController
      */
     public function store(StoreProductCreateRequest $request)
     {
-        //dd(__METHOD__, $request);
+
         $data = $request->input();
+        //dd(__METHOD__, $data);
         $item = (new StoreProduct())->create($data);
 
         if($item) {
@@ -80,7 +81,9 @@ class StoreController extends BaseController
      */
     public function show($id)
     {
-        //
+        $item = $this->storeProductRepository->getEdit($id);
+
+        return view('Store.show', compact('item'));
     }
 
     /**

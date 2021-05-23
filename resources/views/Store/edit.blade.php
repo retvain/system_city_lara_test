@@ -22,9 +22,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title">Breed</label>
-                    <input name="title" value="{{ $item->breed }}"
-                           id="title"
+                    <label for="breed">Breed</label>
+                    <input name="breed" value="{{ $item->breed }}"
+                           id="breed"
                            type="text"
                            class="form-control"
                            minlength="3"
@@ -32,9 +32,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title">Excerpt</label>
-                    <input name="title" value="{{ $item->excerpt }}"
-                           id="title"
+                    <label for="excerpt">Excerpt</label>
+                    <input name="excerpt" value="{{ $item->excerpt }}"
+                           id="excerpt"
                            type="text"
                            class="form-control"
                            minlength="3"
@@ -54,6 +54,7 @@
             <button type="submit" class="btn btn-success" style="float: right"> Save</button>
 
             <a class="btn btn-primary" href="{{ route('store.cat.index') }}" role="button" style="float: right; margin-right: 10px;"> Main page </a>
+                    <a class="btn btn-outline-danger" href="{{ route('') }}" role="button" style="float: right; margin-right: 10px;">Delete</a>
         </form>
     </div>
 @endsection

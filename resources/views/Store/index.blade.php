@@ -15,9 +15,8 @@
                         <div class="card-body">
                             <h5 class="card-title">Id: {{$item->id}} Cat: {{ $item->title }}</h5>
                             <p class="card-text">Breed: {{ $item->breed }}</p>
-                            <a class="btn btn-outline-danger" href="#" role="button" style="float: right">Delete</a>
                             <a class="btn btn-outline-warning" href="{{ route('store.cat.edit', $item->id) }}" role="button" style="float: right">Edit</a>
-                            <a class="btn btn-outline-success" href="#" role="button" style="float: right">Read</a>
+                            <a class="btn btn-outline-success" href="{{ route('store.cat.show', $item->id) }}" role="button" style="float: right">Read</a>
                             <a class="btn btn-success" href="#" role="button" style="float: right">BUY! 50% off</a>
                             <p class="card-text"><small class="text-muted">Excerpt: {{ $item->excerpt }}</small></p>
 

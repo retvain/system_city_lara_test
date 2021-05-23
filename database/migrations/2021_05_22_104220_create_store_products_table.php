@@ -24,7 +24,6 @@ class CreateStoreProductsTable extends Migration
             $table->text('excerpt')->nullable();
 
             $table->text('content_raw');
-            $table->text('content_html');
 
             $table->softDeletes();
         });

@@ -16,7 +16,6 @@ class StoreProduct extends Model
             'title',
             'excerpt',
             'content_raw',
-            'content_html',
             'breed'
         ];
 }

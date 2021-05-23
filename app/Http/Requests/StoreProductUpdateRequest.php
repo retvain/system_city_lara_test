@@ -25,7 +25,7 @@ class StoreProductUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:200',
-            'content_raw' => 'string|max:500|min:3',
+            'content_raw' => 'string|max:2000|min:3',
             'excerpt' => 'string|max:100|min:3',
             'breed' => 'string|max:100|min:3',
         ];
